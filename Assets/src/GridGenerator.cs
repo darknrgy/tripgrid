@@ -8,10 +8,10 @@ using Random = System.Random;
 public class GridGenerator : MonoBehaviour {
 
 	public Material trailMaterial;
-	public float GridSize = 100;
-	public float GridCount = 5;
 	public GameObject Grid;
 	public GameObject CubeTemplate;
+
+	public GameObject GlobalConfig;
 
 
 
@@ -35,8 +35,6 @@ public class GridGenerator : MonoBehaviour {
 		//SaveGrid();
 
 		CreateCubes();
-
-
 	}
 
 	float getRand(float from, float to){
@@ -48,9 +46,11 @@ public class GridGenerator : MonoBehaviour {
 		Quaternion rotation;
 		GameObject cubeChild;
 
+		float gridSize = Config.getF("WorldSize");
 
-		for (UInt16 i = 0; i < 50; i++){
-			position = new Vector3(getRand(0f, GridSize), getRand(0f, GridSize), getRand(0f, GridSize));
+		for (UInt16 i = 0; i < Config.getI("NumberOfCubes"); i++){
+//		for (UInt16 i = 0; i < 200; i++){
+			position = new Vector3(getRand(0f, gridSize), getRand(0f, gridSize), getRand(0f, gridSize));
 			rotation = new Quaternion(0,0,0,0);
 			// rotation = new Quaternion(getRand(0f,1) ,getRand(0f,1),getRand(0f,1) ,getRand(0f,1));
 			cubeChild = (GameObject) Instantiate(CubeTemplate, position, rotation);
@@ -68,12 +68,15 @@ public class GridGenerator : MonoBehaviour {
 		LineRenderer line;
 		Color c1 = new Color();
 		Color c2 = new Color();
+
+		float gridSize = Config.getF("WorldSize");
+		float gridCount = Config.getF("GridCount");
 		
-		for (float u = 0; u <= GridSize; u += GridSize / GridCount){
-			for (float v = 0; v <= GridSize; v += GridSize / GridCount){
+		for (float u = 0; u <= gridSize; u += gridSize / gridCount){
+			for (float v = 0; v <= gridSize; v += gridSize / gridCount){
 				line = GetLineRenderer();
 				line.SetPosition(0, new Vector3(u, v, 0));
-				line.SetPosition(1, new Vector3(u, v, GridSize));
+				line.SetPosition(1, new Vector3(u, v, gridSize));
 				
 				c1 = Color.red;
 				c2 = Color.blue;
@@ -81,7 +84,7 @@ public class GridGenerator : MonoBehaviour {
 				
 				line = GetLineRenderer();
 				line.SetPosition(0, new Vector3(0, u, v));
-				line.SetPosition(1, new Vector3(GridSize, u, v));
+				line.SetPosition(1, new Vector3(gridSize, u, v));
 				
 				c1 = Color.green;
 				c2 = Color.blue;
@@ -91,7 +94,7 @@ public class GridGenerator : MonoBehaviour {
 
 				line = GetLineRenderer();
 				line.SetPosition(0, new Vector3(u, 0, v));
-				line.SetPosition(1, new Vector3(u, GridSize, v));
+				line.SetPosition(1, new Vector3(u, gridSize, v));
 				
 				c1 = Color.blue;
 				c2 = Color.red;
@@ -146,28 +149,46 @@ public class GridGenerator : MonoBehaviour {
 
 	void FixedUpdate(){
 
+		float worldSize = Config.getF("WorldSize");
+		float bufferZone = Config.getF("BufferZone");
+
+		float min = 0 - bufferZone;
+		float max = worldSize + bufferZone;
+
 
 		foreach (GameObject cube in Cubes){
 
 			Vector3 position = cube.rigidbody.position;
 			Vector3 velocity = cube.rigidbody.velocity;
 			/*
-			if (position.x < 0) { position.x = 0; velocity.x = SPEED;}
-			if (position.y < 0) { position.y = 0; velocity.y = SPEED;}
-			if (position.z < 0) { position.z = 0; velocity.z = SPEED;}
+			if (position.x < min) position.x = max;
+			if (position.x > max) position.x = min;
 
-			if (position.x > GridSize) { position.x = GridSize; velocity.x = SPEED;}
-			if (position.y > GridSize) { position.y = GridSize; velocity.y = SPEED;}
-			if (position.z > GridSize) { position.z = GridSize; velocity.z = SPEED;}
-			*/
+			if (position.y < min) position.y = max;
+			if (position.y > max) position.y = min;
 
-			if (getRand(0, 1000) > 999.9) velocity = GetRandomVelocity();
 
-			if (position.x < 0 || position.x > GridSize) velocity.x *= -1 ;
-			if (position.y < 0 || position.y > GridSize) velocity.y *= -1;
-			if (position.z < 0 || position.z > GridSize) velocity.z *= -1;
+			if (position.z < min) position.z = max;
+			if (position.z > max) position.z = min;
+			cube.rigidbody.position = position;
+
+			 */
+
+
+
+
+			if (getRand(0, 1000) > 999.9){
+				velocity = GetRandomVelocity();
+				cube.rigidbody.velocity = velocity;
+			}
+
+			if (position.x < 0 || position.x > worldSize) velocity.x *= -1 ;
+			if (position.y < 0 || position.y > worldSize) velocity.y *= -1;
+			if (position.z < 0 || position.z > worldSize) velocity.z *= -1;
 
 			cube.rigidbody.velocity = velocity;
+
+			
 		}
 
 	}

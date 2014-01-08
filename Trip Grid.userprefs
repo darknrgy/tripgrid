@@ -1,11 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\src\SkyboxMesh.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\src\GridGenerator.cs">
     <Files>
-      <File FileName="Assets\src\spacecraft.cs" Line="11" Column="35" />
-      <File FileName="Assets\src\GridGenerator.cs" Line="14" Column="33" />
-      <File FileName="Assets\src\Cube.cs" Line="1" Column="1" />
-      <File FileName="Assets\src\SkyboxMesh.cs" Line="1" Column="1" />
+      <File FileName="Assets\src\spacecraft.cs" Line="73" Column="19" />
+      <File FileName="Assets\src\GridGenerator.cs" Line="189" Column="39" />
+      <File FileName="Assets\src\Config.cs" Line="13" Column="41" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

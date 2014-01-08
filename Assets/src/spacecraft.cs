@@ -3,8 +3,6 @@ using System.Collections;
 
 public class spacecraft : MonoBehaviour {
 
-	public float BufferZone;
-	public float WorldSize;
 	public GameObject OrientationReference;
 	public GameObject EngineFWDSound;
 	public GameObject EngineREVSound;
@@ -72,9 +70,10 @@ public class spacecraft : MonoBehaviour {
 		}
 
 
+		float bufferZone = Config.getF("BufferZone");
 
-		float min = 0 - BufferZone;
-		float max = WorldSize + BufferZone;
+		float min = 0 - bufferZone;
+		float max = Config.getF("WorldSize") + bufferZone;
 		Vector3 position = rigidbody.transform.position;
 
 		if (position.x > max) position.x = min;

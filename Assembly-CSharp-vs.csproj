@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\GlobalConfig.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRImageEffectBase.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRLensCorrection.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRCamera.cs" />
@@ -61,6 +62,7 @@
      <Compile Include="Assets\OVR\Scripts\OVRPlayerController.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRPresetManager.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRUtils.cs" />
+     <Compile Include="Assets\src\Config.cs" />
      <Compile Include="Assets\src\Cube.cs" />
      <Compile Include="Assets\src\GridGenerator.cs" />
      <Compile Include="Assets\src\SkyboxMesh.cs" />
