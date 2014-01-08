@@ -6,6 +6,10 @@ public class spacecraft : MonoBehaviour {
 	public float BufferZone;
 	public float WorldSize;
 	public GameObject OrientationReference;
+	public OVRCameraController CameraController;
+	public GameObject EngineFWDSound;
+	public GameObject EngineREVSound;
+
 
 	// Use this for initialization
 	void Start () {
@@ -25,12 +29,17 @@ public class spacecraft : MonoBehaviour {
 
 		if (Input.GetButton("Accelerate")){
 			rigidbody.AddRelativeForce(new Vector3(0, 0, 0.50f));
+			EngineFWDSound.audio.mute = false;
+
+		}else{
+			EngineFWDSound.audio.mute = true;
 		}
 
 		if (Input.GetButton("Brake")){
-			//rigidbody.AddRelativeForce(new Vector3(0, 0, -0.50f));
 			rigidbody.velocity = rigidbody.velocity * 0.99f;
-			Debug.Log("fuck you?");
+			EngineREVSound.audio.mute = false;
+		}else{
+			EngineREVSound.audio.mute = true;
 		}
 
 		if (Input.GetButton("ResetOculus")){
@@ -40,6 +49,14 @@ public class spacecraft : MonoBehaviour {
 		
 		if (Input.GetButton("Escape")){
 			Application.Quit();
+		}
+
+		if (Input.GetButton("ViewDistance+")){
+			CameraController.FarClipPlane += 0.5f;
+		}
+
+		if (Input.GetButton("ViewDistance-")){
+			CameraController.FarClipPlane -= 0.5f;
 		}
 
 		rigidbody.AddRelativeTorque(new Vector3(0, 0, -joyX));

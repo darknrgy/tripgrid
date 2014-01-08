@@ -55,6 +55,7 @@ public class GridGenerator : MonoBehaviour {
 			// rotation = new Quaternion(getRand(0f,1) ,getRand(0f,1),getRand(0f,1) ,getRand(0f,1));
 			cubeChild = (GameObject) Instantiate(CubeTemplate, position, rotation);
 			cubeChild.rigidbody.velocity = GetRandomVelocity();
+			cubeChild.audio.pitch = getRand(0.3f, 1.0f);
 			Cubes.Add(cubeChild);
 		}
 	}
