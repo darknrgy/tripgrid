@@ -6,9 +6,9 @@ public class spacecraft : MonoBehaviour {
 	public float BufferZone;
 	public float WorldSize;
 	public GameObject OrientationReference;
-	public OVRCameraController CameraController;
 	public GameObject EngineFWDSound;
 	public GameObject EngineREVSound;
+	public OVRCameraController CameraController;
 
 
 	// Use this for initialization
