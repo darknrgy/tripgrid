@@ -3,10 +3,15 @@ using System.Collections;
 
 public class spacecraft : MonoBehaviour {
 
-	public GameObject OrientationReference;
+	public GameObject OrientationReferenceFWD;
+	public GameObject OrientationReferenceLEFT;
+	public GameObject OrientationReferenceRIGHT;
+
 	public GameObject EngineFWDSound;
 	public GameObject EngineREVSound;
+	public GameObject MissileTemplate;
 	public OVRCameraController CameraController;
+
 
 
 	// Use this for initialization
@@ -93,46 +98,38 @@ public class spacecraft : MonoBehaviour {
 
 
 		Vector3 velocity = rigidbody.velocity;
-		Vector3 orientationVelocity = OrientationReference.transform.position - transform.position;
-		orientationVelocity = orientationVelocity.normalized * velocity.magnitude;
+		Vector3 orientationReference = OrientationReferenceFWD.transform.position - transform.position;
+		orientationReference = orientationReference.normalized * velocity.magnitude;
 
-		velocity = velocity * 0.99f + orientationVelocity * 0.01f;
+		velocity = velocity * 0.99f + orientationReference * 0.01f;
 		rigidbody.velocity = velocity;
 
 		
 	}
 
+	bool parity = true;
+
 	void FireWeapon(){
 
+		if (!CoolDown()) return;
 
-		Vector3 orientationVelocity = OrientationReference.transform.position - transform.position;
-		Vector3 velocity = transform.velocity + orientationVelocity * 1;
+		GameObject side = parity ? OrientationReferenceLEFT : OrientationReferenceRIGHT;
+		parity = !parity;
 
+		Vector3 orientationReference = OrientationReferenceFWD.transform.position - transform.position;
+		Vector3 velocity = transform.rigidbody.velocity + orientationReference * 10;
+
+		GameObject child = (GameObject) Instantiate(MissileTemplate, side.transform.position, transform.rotation);
+		child.rigidbody.velocity = velocity;
+		Destroy(child, 3.0f);
 
 	}
 
+	private float CoolDownTimestamp = 0;
 
-	void CreateCubes(){
-		Vector3 position;
-		Quaternion rotation;
-		GameObject cubeChild;
-		
-		float gridSize = Config.getF("WorldSize");
-		
-		for (UInt16 i = 0; i < Config.getI("NumberOfCubes"); i++){
-			//		for (UInt16 i = 0; i < 200; i++){
-			position = new Vector3(getRand(0f, gridSize), getRand(0f, gridSize), getRand(0f, gridSize));
-			rotation = new Quaternion(0,0,0,0);
-			// rotation = new Quaternion(getRand(0f,1) ,getRand(0f,1),getRand(0f,1) ,getRand(0f,1));
-			cubeChild = (GameObject) Instantiate(CubeTemplate, position, rotation);
-			cubeChild.rigidbody.velocity = GetRandomVelocity();
-			cubeChild.audio.pitch = getRand(0.3f, 1.0f);
-			Cubes.Add(cubeChild);
-		}
+	bool CoolDown(){
+		if (Time.time - CoolDownTimestamp < 0.1) return false;
+		CoolDownTimestamp = Time.time;
+		return true;
 	}
-
-
-
-
-
 }

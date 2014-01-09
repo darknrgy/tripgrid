@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GlobalConfig : MonoBehaviour {
-
-
-	public float TestConfig;
+public class Missile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +10,6 @@ public class GlobalConfig : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		//Destroy(this, 3.0f);
 	}
 }
