@@ -17,7 +17,6 @@ public class GridGenerator : MonoBehaviour {
 
 	private List<GameObject> Cubes = new List<GameObject>();
 	private Random rand = new Random();
-	private const float SPEED = 2;
 
 	private Vector3[] directions = new Vector3[6]{
 		Vector3.up,
@@ -61,7 +60,7 @@ public class GridGenerator : MonoBehaviour {
 	}
 
 	Vector3 GetRandomVelocity(){
-		return directions[rand.Next(directions.Length)] * SPEED;
+		return directions[rand.Next(directions.Length)] * Config.getF("CubeSpeed");
 	}
 
 	void CreateGrid(){
@@ -160,7 +159,7 @@ public class GridGenerator : MonoBehaviour {
 
 			Vector3 position = cube.rigidbody.position;
 			Vector3 velocity = cube.rigidbody.velocity;
-			/*
+
 			if (position.x < min) position.x = max;
 			if (position.x > max) position.x = min;
 
@@ -172,20 +171,16 @@ public class GridGenerator : MonoBehaviour {
 			if (position.z > max) position.z = min;
 			cube.rigidbody.position = position;
 
-			 */
-
-
-
-
 			if (getRand(0, 1000) > 999.9){
 				velocity = GetRandomVelocity();
 				cube.rigidbody.velocity = velocity;
 			}
 
+			/*
 			if (position.x < 0 || position.x > worldSize) velocity.x *= -1 ;
 			if (position.y < 0 || position.y > worldSize) velocity.y *= -1;
 			if (position.z < 0 || position.z > worldSize) velocity.z *= -1;
-
+			*/
 			cube.rigidbody.velocity = velocity;
 
 			

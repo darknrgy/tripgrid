@@ -57,6 +57,10 @@ public class spacecraft : MonoBehaviour {
 			CameraController.FarClipPlane -= 0.5f;
 		}
 
+		if (Input.GetButton("FireWeapon")){
+			FireWeapon();
+		}
+
 		rigidbody.AddRelativeTorque(new Vector3(0, 0, -joyX));
 		rigidbody.AddRelativeTorque(new Vector3(-joyY, 0, 0));
 		rigidbody.AddRelativeTorque(new Vector3(0, joyZ, 0));
@@ -95,13 +99,40 @@ public class spacecraft : MonoBehaviour {
 		velocity = velocity * 0.99f + orientationVelocity * 0.01f;
 		rigidbody.velocity = velocity;
 
-
-
-
-
-
-
-
 		
 	}
+
+	void FireWeapon(){
+
+
+		Vector3 orientationVelocity = OrientationReference.transform.position - transform.position;
+		Vector3 velocity = transform.velocity + orientationVelocity * 1;
+
+
+	}
+
+
+	void CreateCubes(){
+		Vector3 position;
+		Quaternion rotation;
+		GameObject cubeChild;
+		
+		float gridSize = Config.getF("WorldSize");
+		
+		for (UInt16 i = 0; i < Config.getI("NumberOfCubes"); i++){
+			//		for (UInt16 i = 0; i < 200; i++){
+			position = new Vector3(getRand(0f, gridSize), getRand(0f, gridSize), getRand(0f, gridSize));
+			rotation = new Quaternion(0,0,0,0);
+			// rotation = new Quaternion(getRand(0f,1) ,getRand(0f,1),getRand(0f,1) ,getRand(0f,1));
+			cubeChild = (GameObject) Instantiate(CubeTemplate, position, rotation);
+			cubeChild.rigidbody.velocity = GetRandomVelocity();
+			cubeChild.audio.pitch = getRand(0.3f, 1.0f);
+			Cubes.Add(cubeChild);
+		}
+	}
+
+
+
+
+
 }

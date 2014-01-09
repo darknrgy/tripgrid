@@ -7,10 +7,12 @@ public class Config {
 
 	// defaults
 	public Config () {
-		prefs.Add ("WorldSize", 80f);
-		prefs.Add ("BufferZone", 15f);
-		prefs.Add ("GridCount", 50f);
+		prefs.Add ("WorldSize", 40f);
+		prefs.Add ("BufferZone", 0f);
+		prefs.Add ("GridCount", 20f);
 		prefs.Add ("NumberOfCubes", (Int16) 50);
+		prefs.Add ("CubeSpeed", 4f);
+
 	}
 	
 	protected Dictionary<string,object> prefs = new Dictionary<string, object>();
