@@ -14,6 +14,7 @@ public class Config {
 		prefs.Add ("GridCount", 20f);
 		prefs.Add ("NumberOfCubes", (Int16) 50);
 		prefs.Add ("CubeSpeed", 4f);
+		rand = new Random();
 
 	}
 
@@ -35,14 +36,11 @@ public class Config {
 	}
 
 	public static Random GetRand(){ 
-		Random rand = new Random();
-		return rand; 
+		return Instance.rand;
 	}
 
 	public static float GetRandRange(float from, float to){
-
-		Random rand = new Random();
-		return (float) rand.NextDouble() * (to - from) + from;
+		return (float) Instance.rand.NextDouble() * (to - from) + from;
 	}
 
 

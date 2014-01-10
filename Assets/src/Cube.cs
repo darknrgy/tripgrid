@@ -14,6 +14,9 @@ public class Cube : MonoBehaviour {
 			Config.GetRandRange(0f, gridSize), 
 			Config.GetRandRange(0f, gridSize), 
 			Config.GetRandRange(0f, gridSize));
+		audio.pitch = Config.GetRandRange(0.3f, 1.0f);
+
+		SetRandomVelocity();
 	}
 
 
