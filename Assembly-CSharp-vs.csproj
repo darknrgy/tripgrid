@@ -63,8 +63,10 @@
      <Compile Include="Assets\OVR\Scripts\OVRUtils.cs" />
      <Compile Include="Assets\src\Config.cs" />
      <Compile Include="Assets\src\Cube.cs" />
+     <Compile Include="Assets\src\Game.cs" />
      <Compile Include="Assets\src\GridGenerator.cs" />
      <Compile Include="Assets\src\Missile.cs" />
+     <Compile Include="Assets\src\MyApplication.cs" />
      <Compile Include="Assets\src\SkyboxMesh.cs" />
      <Compile Include="Assets\src\spacecraft.cs" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />

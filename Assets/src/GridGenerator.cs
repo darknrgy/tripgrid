@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using UnityEditor;
 using System.Collections.Generic;
 using System;
 using Random = System.Random;
@@ -10,22 +9,12 @@ public class GridGenerator : MonoBehaviour {
 	public Material trailMaterial;
 	public GameObject Grid;
 	public GameObject CubeTemplate;
-
 	public GameObject GlobalConfig;
 
 
 
-	private List<GameObject> Cubes = new List<GameObject>();
-	private Random rand = new Random();
 
-	private Vector3[] directions = new Vector3[6]{
-		Vector3.up,
-		Vector3.down,
-		Vector3.left,
-		Vector3.right,
-		Vector3.forward,
-		Vector3.back
-	};
+	private List<GameObject> Cubes = new List<GameObject>();
 
 	// Use this for initialization
 	void Start () {
@@ -34,10 +23,11 @@ public class GridGenerator : MonoBehaviour {
 		//SaveGrid();
 
 		CreateCubes();
-	}
 
-	float getRand(float from, float to){
-		return (float) rand.NextDouble() * (to - from) + from;
+
+
+
+
 	}
 
 	void CreateCubes(){
@@ -48,19 +38,17 @@ public class GridGenerator : MonoBehaviour {
 		float gridSize = Config.getF("WorldSize");
 
 		for (UInt16 i = 0; i < Config.getI("NumberOfCubes"); i++){
-//		for (UInt16 i = 0; i < 200; i++){
-			position = new Vector3(getRand(0f, gridSize), getRand(0f, gridSize), getRand(0f, gridSize));
-			rotation = new Quaternion(0,0,0,0);
-			// rotation = new Quaternion(getRand(0f,1) ,getRand(0f,1),getRand(0f,1) ,getRand(0f,1));
-			cubeChild = (GameObject) Instantiate(CubeTemplate, position, rotation);
-			cubeChild.rigidbody.velocity = GetRandomVelocity();
-			cubeChild.audio.pitch = getRand(0.3f, 1.0f);
+			cubeChild = (GameObject) Instantiate(CubeTemplate);
+			Cube cube = cubeChild.GetComponent<Cube>();
+			cube.SetRandomVelocity();
+			cubeChild.audio.pitch = Config.GetRandRange(0.3f, 1.0f);
 			Cubes.Add(cubeChild);
+			cubeChild.GetComponent<Cube>().SetId((UInt32) Config.GetRandRange(0,100) );
 		}
 	}
 
-	Vector3 GetRandomVelocity(){
-		return directions[rand.Next(directions.Length)] * Config.getF("CubeSpeed");
+	void MissileHitCallback(object sender, EventArgs e){
+		Debug.Log ("callback worked!!");
 	}
 
 	void CreateGrid(){
@@ -148,43 +136,7 @@ public class GridGenerator : MonoBehaviour {
 
 	void FixedUpdate(){
 
-		float worldSize = Config.getF("WorldSize");
-		float bufferZone = Config.getF("BufferZone");
 
-		float min = 0 - bufferZone;
-		float max = worldSize + bufferZone;
-
-
-		foreach (GameObject cube in Cubes){
-
-			Vector3 position = cube.rigidbody.position;
-			Vector3 velocity = cube.rigidbody.velocity;
-
-			if (position.x < min) position.x = max;
-			if (position.x > max) position.x = min;
-
-			if (position.y < min) position.y = max;
-			if (position.y > max) position.y = min;
-
-
-			if (position.z < min) position.z = max;
-			if (position.z > max) position.z = min;
-			cube.rigidbody.position = position;
-
-			if (getRand(0, 1000) > 999.9){
-				velocity = GetRandomVelocity();
-				cube.rigidbody.velocity = velocity;
-			}
-
-			/*
-			if (position.x < 0 || position.x > worldSize) velocity.x *= -1 ;
-			if (position.y < 0 || position.y > worldSize) velocity.y *= -1;
-			if (position.z < 0 || position.z > worldSize) velocity.z *= -1;
-			*/
-			cube.rigidbody.velocity = velocity;
-
-			
-		}
 
 	}
 

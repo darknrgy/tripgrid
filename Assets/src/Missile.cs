@@ -1,28 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+
+public delegate void MissileHitEventHandler(object sender, EventArgs e);
 
 public class Missile : MonoBehaviour {
 
 
 	public GameObject Grid;
 
-	// Use this for initialization
-	void Start () {
-	
+	public event MissileHitEventHandler MissileHit;
+
+	protected virtual void OnMissileHit(EventArgs e){
+		if (MissileHit != null) MissileHit(this, e);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		//Destroy(this, 3.0f);
-	}
+
+	void Start () {}
+	void Update () {}
 
 	void OnTriggerEnter(Collider other) {
 		if (other.CompareTag("Cube")){
-
-
 			Debug.Log("Cube hit");
+
+			GameObject gameObject = GameObject.FindWithTag("Game");
+			Game game = gameObject.GetComponent<Game>();
+			game.HitCube(other.gameObject);
 		}else{
 			Debug.Log("Hit something: " + other.tag);
 		}
 	}
+
+	public void Test(){
+		Debug.Log ("FUCKING SHIT ASS CUNT");
+	}
 }
+
+
