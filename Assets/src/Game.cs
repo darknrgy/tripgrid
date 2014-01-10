@@ -14,7 +14,7 @@ public class Game : MonoBehaviour {
 
 	void Start () {
 		Instantiate(grid);
-		Instantiate(spaceCraft);
+		//Instantiate(spaceCraft);
 		CreateCubes();
 	}
 

@@ -10,9 +10,9 @@ public class Config {
 	// defaults
 	public Config () {
 		prefs.Add ("WorldSize", 40f);
-		prefs.Add ("BufferZone", 0f);
+		prefs.Add ("BufferZone", 15f);
 		prefs.Add ("GridCount", 20f);
-		prefs.Add ("NumberOfCubes", (Int16) 50);
+		prefs.Add ("NumberOfCubes", (Int16) 15);
 		prefs.Add ("CubeSpeed", 4f);
 		rand = new Random();
 
