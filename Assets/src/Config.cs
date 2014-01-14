@@ -12,8 +12,9 @@ public class Config {
 		prefs.Add ("WorldSize", 40f);
 		prefs.Add ("BufferZone", 15f);
 		prefs.Add ("GridCount", 16f);
-		prefs.Add ("NumberOfCubes", (Int16) 20);
+		prefs.Add ("NumberOfCubes", (Int32) 20);
 		prefs.Add ("CubeSpeed", 4f);
+		prefs.Add ("Control", 0.01f); // higher value is more control
 		rand = new Random();
 
 	}
@@ -22,7 +23,7 @@ public class Config {
 	protected static Config instance = null;
 	public static object get(string key){return Instance.prefs[key];}
 	public static float getF(string key){ return (float) get(key); }
-	public static Int16 getI(string key){ return (Int16) get(key); }
+	public static Int32 getI(string key){ return (Int32) get(key); }
 
 
 	private Random rand;

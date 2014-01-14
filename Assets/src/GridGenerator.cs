@@ -8,7 +8,6 @@ public class GridGenerator : MonoBehaviour {
 
 	public Material trailMaterial;
 	public GameObject Grid;
-	public GameObject GlobalConfig;
 
 	void Start () {
 		CreateGrid();
@@ -58,10 +57,11 @@ public class GridGenerator : MonoBehaviour {
 	protected LineRenderer GetLineRenderer(){
 		GameObject gameObject = new GameObject();		
 		LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
+
 		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
-		//Color color = lineRenderer.material.color;
-		//color.a = 0.0f;
-		//lineRenderer.material.color = color;
+		//lineRenderer.material = new Material(Shader.Find("Particles/Alpha Blended"));
+		Color color = new Color(1f, 1f, 1f, 1f);
+		lineRenderer.material.SetColor("_TintColor", color);
 		lineRenderer.SetWidth(0.08F, 0.08F);
 		gameObject.transform.parent = Grid.transform;
 		return lineRenderer;

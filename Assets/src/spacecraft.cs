@@ -101,7 +101,7 @@ public class spacecraft : MonoBehaviour {
 		Vector3 orientationReference = OrientationReferenceFWD.transform.position - transform.position;
 		orientationReference = orientationReference.normalized * velocity.magnitude;
 
-		velocity = velocity * 0.99f + orientationReference * 0.01f;
+		velocity = velocity * (1 - Config.getF("Control")) + orientationReference * Config.getF("Control");
 		rigidbody.velocity = velocity;
 
 		
