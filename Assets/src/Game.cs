@@ -19,10 +19,7 @@ public class Game : MonoBehaviour {
 	}
 
 	public void HitCube(GameObject other){
-		UInt32 id = other.GetComponent<Cube>().GetId();
-		Debug.Log("HIT ID: " + id);
-		GameObject explosion = (GameObject) Instantiate(Explosion);
-		explosion.transform.position = other.rigidbody.position;
+		GameObject explosion = (GameObject) Instantiate(Explosion, other.rigidbody.position, new Quaternion(0,0,0,0));
 		explosion.audio.Play ();
 		Destroy(explosion, 3.0f);
 		Destroy(other);

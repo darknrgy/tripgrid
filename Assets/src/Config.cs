@@ -11,8 +11,8 @@ public class Config {
 	public Config () {
 		prefs.Add ("WorldSize", 40f);
 		prefs.Add ("BufferZone", 15f);
-		prefs.Add ("GridCount", 20f);
-		prefs.Add ("NumberOfCubes", (Int16) 15);
+		prefs.Add ("GridCount", 16f);
+		prefs.Add ("NumberOfCubes", (Int16) 20);
 		prefs.Add ("CubeSpeed", 4f);
 		rand = new Random();
 
