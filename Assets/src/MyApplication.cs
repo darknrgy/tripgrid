@@ -5,9 +5,6 @@ using System.Collections.Generic;
 public class MyApplication : MonoBehaviour {
 
 	public GameObject gameState;
-	public GameObject grid;
-	public GameObject spaceCraft;
-	public GameObject missileTemplate;
 
 	private GameObject state = null;
 

@@ -10,8 +10,6 @@ public class Game : MonoBehaviour {
 	public GameObject CubeTemplate;
 	public GameObject Explosion;
 
-	private List<GameObject> Cubes = new List<GameObject>();
-
 	void Start () {
 		Instantiate(grid);
 		CreateCubes();
@@ -25,8 +23,6 @@ public class Game : MonoBehaviour {
 	}
 
 	void CreateCubes(){
-		float gridSize = Config.getF("WorldSize");
-		
 		for (UInt16 i = 0; i < Config.getI("NumberOfCubes"); i++){
 			CreateCube();
 		}
@@ -34,9 +30,7 @@ public class Game : MonoBehaviour {
 	}
 
 	void CreateCube(){
-		GameObject cubeChild;
-		cubeChild = (GameObject) Instantiate(CubeTemplate);
-		//cubeChild.GetComponent<Cube>().SetId((UInt32) Config.GetRandRange(0,100) );
+		Instantiate(CubeTemplate);
 	}
 
 }
