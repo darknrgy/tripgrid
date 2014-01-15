@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\DiscreteGrid.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRImageEffectBase.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRLensCorrection.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRCamera.cs" />
@@ -64,6 +63,7 @@
      <Compile Include="Assets\OVR\Scripts\OVRUtils.cs" />
      <Compile Include="Assets\src\Config.cs" />
      <Compile Include="Assets\src\Cube.cs" />
+     <Compile Include="Assets\src\DiscreteGrid.cs" />
      <Compile Include="Assets\src\Game.cs" />
      <Compile Include="Assets\src\GridGenerator.cs" />
      <Compile Include="Assets\src\Missile.cs" />

@@ -12,7 +12,7 @@ public class Config {
 		prefs.Add ("WorldSize", 40f);
 		prefs.Add ("BufferZone", 15f);
 		prefs.Add ("GridCount", (Int32) 10);
-		prefs.Add ("NumberOfCubes", (Int32) 20);
+		prefs.Add ("NumberOfCubes", (Int32) 0);
 		prefs.Add ("CubeSpeed", 4f);
 		prefs.Add ("Control", 0.01f); // higher value is more control
 		rand = new Random();
