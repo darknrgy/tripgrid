@@ -41,7 +41,7 @@ public class SkyboxMesh : MonoBehaviour
 		"}";
 	
 	public Material		material;
-	public float		radius		= 800.0f;
+	private float		radius;
 	public int		 	segments	= 32;
 	public Shape		shape		= Shape.Sphere;
 	public Material		skybox;
@@ -49,6 +49,11 @@ public class SkyboxMesh : MonoBehaviour
 	
 	void Awake()
 	{
+		float middle = Config.getF ("WorldSize") / 2;
+		transform.position = new Vector3(middle, middle, middle);
+		radius		= Config.getF ("WorldSize") / 2 + Config.getF ("BufferZone");
+
+
 		if( this.material == null ) {
 			this.material = new Material( _shaderText );
 		}

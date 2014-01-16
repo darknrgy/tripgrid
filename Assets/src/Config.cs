@@ -9,8 +9,8 @@ public class Config {
 
 	// defaults
 	public Config () {
-		prefs.Add ("WorldSize", 40f);
-		prefs.Add ("BufferZone", 15f);
+		prefs.Add ("WorldSize", 6f);
+		prefs.Add ("BufferZone", 10f);
 		prefs.Add ("GridCount", (Int32) 10);
 		prefs.Add ("NumberOfCubes", (Int32) 0);
 		prefs.Add ("CubeSpeed", 4f);
@@ -24,6 +24,7 @@ public class Config {
 	public static object get(string key){return Instance.prefs[key];}
 	public static float getF(string key){ return (float) get(key); }
 	public static Int32 getI(string key){ return (Int32) get(key); }
+	public static Vector3 CenterVector(){ return new Vector3(getF("WorldSize") / 2, getF("WorldSize") / 2, getF("WorldSize") / 2); }
 
 
 	private Random rand;

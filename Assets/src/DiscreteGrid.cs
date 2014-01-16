@@ -20,6 +20,7 @@ public class LineMap{
 public class DiscreteGrid : MonoBehaviour {
 
 	public GameObject Grid;
+	public GameObject SoundObject;
 
 	Vector3[,,] coreGrid, dynamicGrid;
 	Color[,,] gridColors;
@@ -31,23 +32,33 @@ public class DiscreteGrid : MonoBehaviour {
 	void Update () {
 		UpdateShifter();
 		Iterate3D(new Iterate3DCallback(this.ShiftLeft));
-		//Iterate3D(new Iterate3DCallback(this.AssignColors));
 		UpdateLines();
+
+		float sin = (float) Math.Sin(-timeShifter * 1.0f);		
+		SoundObject.audio.pitch = MapRange(sin, -1f, 1f, 0.4f, 0.5f);
+
+
+
+
+
 	}
 
-	private float shifter = 0;
-	void UpdateShifter(){ shifter += 1 * Time.deltaTime; }
+	private float timeShifter = 0;
+	void UpdateShifter(){ timeShifter += 1 * Time.deltaTime; }
 
 	void ShiftLeft(UInt32 ix, UInt32 iy, UInt32 iz){
 
-		float magnitude = 4f;
+		float worldSize = Config.getF("WorldSize");
+
+		float magnitude = worldSize * 0.1f;
 		float offset = 1 / (magnitude * 2);
 
 		Vector3 p = coreGrid[ix, iy, iz];
-		Vector3 radiusVector = (p - new Vector3(20, 20, 20));
+		Vector3 radiusVector = (p - Config.CenterVector ());
 		Vector3 radiusNormalized = radiusVector.normalized;
 		float radiusMagnitude = radiusVector.magnitude;
-		float sin = (float) Math.Sin(-shifter * 0.2f + radiusMagnitude * 0.15f);
+		float sin = (float) Math.Sin(-timeShifter * 1.0f + radiusMagnitude * (1f / (worldSize * 0.1f)));
+
 		float deviation = magnitude * sin;
 
 		p = p + radiusNormalized * deviation * (1.0f + radiusMagnitude/50);// * (radiusMagnitude / 10);
@@ -67,9 +78,9 @@ public class DiscreteGrid : MonoBehaviour {
 		//color = new Color(1 - (diff - 1f), 0, diff - 1f);
 		gridColors[ix, iy, iz] = color;
 
-		float newRadius = (p - new Vector3(20, 20, 20)).magnitude;
+		float newRadius = (p - Config.CenterVector()).magnitude;
 
-		gridLineWidths[ix, iy, iz] = MapRange(newRadius, 0f, 20f, 0.04f, 0.15f);
+		gridLineWidths[ix, iy, iz] = MapRange(newRadius, 0f, worldSize / 2, worldSize * 0.001f, worldSize * 0.003f);
 	}
 
 	// run all the methods to generate coreGrid, dynamicGrid, and lineMapList
@@ -89,7 +100,7 @@ public class DiscreteGrid : MonoBehaviour {
 	// calculate world positions from coordinates, assign to coreGrid
 	void GeneratePoint(UInt32 ix, UInt32 iy, UInt32 iz){
 		float x, y, z;
-		float segment = Config.getF("WorldSize") / (UInt32) Config.getI("GridCount");
+		float segment = (Config.getF("WorldSize") + Config.getF("WorldSize") / (float) Config.getI("GridCount")) / (UInt32) Config.getI("GridCount");
 		x = ix * segment;
 		y = iy * segment;
 		z = iz * segment;
@@ -185,11 +196,7 @@ public class DiscreteGrid : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-		/*for (float a = -1f; a <= 1f; a += 0.1f){
-			Debug.Log(MapRange(a, -1f, 1f, -5f, 0f));
-		}*/
-
+		SoundObject.transform.position = Config.CenterVector();
 		CreateGrid();
 
 	}
