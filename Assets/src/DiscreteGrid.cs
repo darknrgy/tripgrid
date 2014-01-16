@@ -40,7 +40,7 @@ public class DiscreteGrid : MonoBehaviour {
 
 	void ShiftLeft(UInt32 ix, UInt32 iy, UInt32 iz){
 
-		float magnitude = 2f;
+		float magnitude = 4f;
 		float offset = 1 / (magnitude * 2);
 
 		Vector3 p = coreGrid[ix, iy, iz];
@@ -50,7 +50,7 @@ public class DiscreteGrid : MonoBehaviour {
 		float sin = (float) Math.Sin(-shifter * 0.2f + radiusMagnitude * 0.15f);
 		float deviation = magnitude * sin;
 
-		p = p + radiusNormalized * deviation * (1.5f + radiusMagnitude/20);// * (radiusMagnitude / 10);
+		p = p + radiusNormalized * deviation * (1.0f + radiusMagnitude/50);// * (radiusMagnitude / 10);
 
 		dynamicGrid[ix, iy, iz] = p;
 
@@ -61,10 +61,10 @@ public class DiscreteGrid : MonoBehaviour {
 		// -0.4 to 0.4
 		diff = (diff + magnitude) * offset * 2;
 		Color color;
-		//if (deviation > 4.95f) color = new Color(0f, 1f, 0f);
+		//if (deviation > magnitude * 0.999f) color = new Color(0f, 1f, 0f);
 		//else 
-
 		color = new Color(diff - 1f, 0, 1 - (diff - 1f) );
+		//color = new Color(1 - (diff - 1f), 0, diff - 1f);
 		gridColors[ix, iy, iz] = color;
 
 		float newRadius = (p - new Vector3(20, 20, 20)).magnitude;
