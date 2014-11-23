@@ -66,7 +66,7 @@ public class DiscreteGrid : MonoBehaviour {
 		dynamicGrid[ix, iy, iz] = p;
 
 		Vector3 core = coreGrid[ix, iy, iz];
-		Vector3 dynam = dynamicGrid[ix, iy, iz];
+		//Vector3 dynam = dynamicGrid[ix, iy, iz];
 		
 		float diff = deviation;
 		// -0.4 to 0.4

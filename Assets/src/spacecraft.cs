@@ -10,7 +10,7 @@ public class spacecraft : MonoBehaviour {
 	public GameObject EngineFWDSound;
 	public GameObject EngineREVSound;
 	public GameObject MissileTemplate;
-	public OVRCameraController CameraController;
+	public OVRCameraRig CameraRig;
 
 
 
@@ -46,7 +46,7 @@ public class spacecraft : MonoBehaviour {
 		}
 
 		if (Input.GetButton("ResetOculus")){
-			OVRDevice.ResetOrientation(0);
+			OVRManager.display.RecenterPose();
 		}
 
 		
@@ -55,11 +55,11 @@ public class spacecraft : MonoBehaviour {
 		}
 
 		if (Input.GetButton("ViewDistance+")){
-			CameraController.FarClipPlane += 0.5f;
+			//CameraRig.FarClipPlane += 0.5f;
 		}
 
 		if (Input.GetButton("ViewDistance-")){
-			CameraController.FarClipPlane -= 0.5f;
+			//CameraRig.FarClipPlane -= 0.5f;
 		}
 
 		if (Input.GetButton("FireWeapon")){
@@ -75,7 +75,8 @@ public class spacecraft : MonoBehaviour {
 		}
 
 		if (Input.GetKey(KeyCode.LeftAlt)){
-			OVRDevice.ResetOrientation(0);
+			OVRManager.display.RecenterPose();
+
 		}
 
 
